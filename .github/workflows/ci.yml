@@ -19,13 +19,17 @@ jobs:
       - name: Set up Bash
         run: sudo apt-get install -y bash
 
-      - name: Run compare_symlinks.sh
+        
+      - name: Rendre le script exécutable
+        run: chmod +x compare_symlinks.sh
+
+      - name: Créer les fichiers de test
         run: |
-          chmod +x compare_symlinks.sh
-          ./compare_symlinks.sh file1.txt file2.txt
-        env:
-          FILE1: file1.txt
-          FILE2: file2.txt
+          echo "/tmp/link1 ➜ /tmp/target1" > file1.txt
+          echo "/tmp/link1 ➜ /tmp/target1" > file2.txt
+
+      - name: Exécuter le script
+        run: ./compare_symlinks.sh file1.txt file2.txt
 
       - name: Check for errors
         run: |
